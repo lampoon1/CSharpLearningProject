@@ -332,19 +332,24 @@ Recap - learned
 //  create role-playing multiplayer game
 //////////////////////////////////////////////////////////////////////
 /////unit 6 of 9; unit 7 review solution...
-//Exercise - Complete the challenge to create a reusable method (use Program.cs)
+//Exercise - Complete the challenge to create a reusable method (use Program.cs) re-worked on 2025/9/6
 //
 //Tell a fortune
 //- develop a massive multiplayer role-playing game. 
 //- Each player has a luck stat that can affect their odds of finding rare treasure. 
 //- Each day, a player can speak to an in-game fortune teller that reveals whether their luck stat is high, low, or neutral.
 //
-//Your task is to create a tellFortune method that can be called at any time, 
-//and replace the existing logic with a call to your method.
-//In this challenge, you're given some starting code. You must decide how to create and call the tellFortune method.
+//Created a tellFortune method that can be called at any time, 
+//Replaced the existing logic with a call to your method.
+//
 ///////////////////////////////
-/////code and solution from unit 7
+//Solution from unit 7 and here:
+/// I did reviewed and it is using a method to display the fortune.
+/// ran the project 
+/// 2025/9/6 Added bonus is now all my project files are in one folder and just commited to GitHub
+///  I will continue to learn and how to version of my code and commit again and push to GitHub today
 
+/*
 Random random = new Random();
 int luck = random.Next(100);
 
@@ -366,5 +371,5 @@ void TellFortune()
 }
 */
 ////////////////END OF UNIT 7/////////////////////////////////
-///UNIT 8: review questions and answers a quiz
+///UNIT 8: review questions and answered a quiz in freecodecamp progress
 //////////////////////////////////////////////////////////

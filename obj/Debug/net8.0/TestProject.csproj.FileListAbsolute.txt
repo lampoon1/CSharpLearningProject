@@ -26,3 +26,4 @@ C:\Temp\CsharpProjects\TestProject\obj\Debug\net8.0\refint\TestProject.dll
 C:\Temp\CsharpProjects\TestProject\obj\Debug\net8.0\TestProject.pdb
 C:\Temp\CsharpProjects\TestProject\obj\Debug\net8.0\TestProject.genruntimeconfig.cache
 C:\Temp\CsharpProjects\TestProject\obj\Debug\net8.0\ref\TestProject.dll
+C:\Temp\CsharpProjects\TestProject\obj\Debug\net8.0\TestProject.sourcelink.json
