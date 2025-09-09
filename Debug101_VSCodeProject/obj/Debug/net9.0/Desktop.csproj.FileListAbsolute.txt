@@ -1,0 +1,15 @@
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\bin\Debug\net9.0\Desktop.exe
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\bin\Debug\net9.0\Desktop.deps.json
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\bin\Debug\net9.0\Desktop.runtimeconfig.json
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\bin\Debug\net9.0\Desktop.dll
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\bin\Debug\net9.0\Desktop.pdb
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.GeneratedMSBuildEditorConfig.editorconfig
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.AssemblyInfoInputs.cache
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.AssemblyInfo.cs
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.csproj.CoreCompileInputs.cache
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.sourcelink.json
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.dll
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\refint\Desktop.dll
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.pdb
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\Desktop.genruntimeconfig.cache
+C:\Temp\CsharpProjects\TestProject\Debug101_VSCodeProject\obj\Debug\net9.0\ref\Desktop.dll

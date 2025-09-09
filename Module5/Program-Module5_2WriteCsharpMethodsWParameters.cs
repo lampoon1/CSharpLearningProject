@@ -467,7 +467,7 @@ davaldes@hayworth.com
 */
 
 //code:
-string[,] corporate = 
+/* string[,] corporate = 
 {
     {"Robert", "Bavin"}, {"Simon", "Bright"},
     {"Kim", "Sinclair"}, {"Aashrita", "Kamath"},
@@ -504,7 +504,7 @@ void DisplayEmail(string first, string last, string domain = "contoso.com")
     string email = first.Substring(0, 2) + last;
     email = email.ToLower();
     Console.WriteLine($"{email}@{domain}");
-}
+} */
 //output: [clean code methods above]
 // robavin@contoso.com
 // sibright@contoso.com

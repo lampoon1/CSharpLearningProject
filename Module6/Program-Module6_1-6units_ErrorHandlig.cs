@@ -1,47 +1,53 @@
 ﻿////////////////////////////////////////////////////
-//2025/2/23
+//2025/2/23; 2025/9/6
 //Module 6:  Debugging and Exception Handling
 //6 units
+//Review the principles of code debugging and exception handling
 ////////////////////////////////////////////////////
 //1. Intro
-// Examine the code debugging process and the benefits provided by code debuggers, and learn what an exception is and how exceptions are used in an application.
+// Examine the code debugging process and the benefits provided by code debuggers, 
+// and learn what an exception is and how exceptions are used in an application.
 /*
-Learning objectives
-Review the responsibilities for software testing, debugging, and exception handling.
-Examine the code debugging process and the benefits provided by code debugger tools.
-Examine what an exception is and the options for managing exceptions in your code. 
+Learning objectives:
+1. Review the responsibilities for software testing, debugging, and exception handling.
+2. Examine the code debugging process and the benefits provided by code debugger tools.
+3. Examine what an exception is and the options for managing exceptions in your code. 
 */
 //2 Get started with testing, debugging, and exception handling
-//The software development process can involve a lot of testing. 
-// In fact, software testing has its own specialized discipline, 
-// and software testers play an important role in the development of large applications. 
-// There are even approaches to the software development process that are based on testing, such as test-driven development.
-//
-//Software testing categories can be organized under the types of testing, the approaches to testing, 
-// or a combination of both. One way to categorize the types of testing is to split testing 
-// into Functional and Nonfunctional testing. 
-// The functional and nonfunctional categories each include subcategories of testing. 
-// For example, functional and nonfunctional testing could be divided into the following subcategories:
-
-//Functional testing - Unit testing - Integration testing - System testing - Acceptance testing
-//Nonfunctional testing - Security testing - Performance testing - Usability testing - Compatibility testing
+//- software development process can involve a lot of testing. 
+//- approaches to the software development process that are based on testing, such as test-driven development.
+//- Software testing categories can be organized under the types of testing, the approaches to testing, 
+//   or a combination of both. One way to categorize the types of testing is to split testing 
+//   into Functional and Nonfunctional testing. 
+// Functional testing:     Unit testing - Integration testing - System testing - Acceptance testing
+// Nonfunctional testing:  Security testing - Performance testing - Usability testing - Compatibility testing
 // 
 // Note
 //Since software testing is such a large topic, and since it's often performed by a separate job role, 
 //formal approaches to software testing won't be discussed in this module.
-/////////////////////////////////////////////
+////////////////////////////////////////////////////////
 //Code debugging and developer responsibilities:
-//there are tools and approaches that you can use to track down issues that're hard to find.
-/*
+
+
+/* 
 string[] students = new string[] {"Sophia", "Nicolas", "Zahirah", "Jeong"};
 
 int studentCount = students.Length;
 
-Console.WriteLine("The final name is: " + students[studentCount]);
+//Console.WriteLine("The final name is: " + students[studentCount]);  //this will produce an error
+Console.WriteLine("The final name is: " + students[studentCount - 1]); //corrected code 
 */
+
 // The above code snippet generate compilation error... in the Console writeline students[]
 // The final name in the array should be accessed using students[studentCount - 1].
-//
+
+//2025/9/6 reviewed notes and re-run the program
+//output:
+//Unhandled exception. System.IndexOutOfRangeException: Index was outside the bounds of the array.
+//   at Program.<Main>$(String[] args) in C:\Temp\CsharpProjects\TestProject\Module6\Program-Module6_1-6units_ErrorHandlig.cs:line 35
+//after correction:
+//output: The final name is: Jeong 
+/////////////////////////////////////////////////////
 //Summary and Recap
 /*
 Exception handling and developer responsibilities
@@ -52,16 +58,14 @@ Handling exceptions is definitely a responsibility of the developer.
 C# provides a way for you to "try" the code that you know might generate an exception, 
 and a way for you to "catch" any exceptions that do occur.
 
-Recap
-Here are a few important things to remember from this unit:
-
+Recap:
 Testing, debugging, and exception handling are all important tasks for software developers.
 Testing can be categorized into functional and nonfunctional testing, and developers are expected to perform some level of testing.
 Code debugging is the process of isolating issues and identifying ways to fix them, and it's a developer responsibility.
 Exception handling is the process of managing errors that occur during runtime, 
 and developers are responsible for handling exceptions by using "try" and "catch" statements in their code.
 */
-//////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 //Unit 3: Examine the code debugger approach to debugging code
 /*
 Code debugging process
@@ -78,6 +82,7 @@ You might have experienced various degrees of success with these methods, but do
 
 The one approach that's commonly regarded as being the most successful is using a debugger. 
 But what's a debugger exactly?
+------------------------------------
 A debugger is a software tool used to observe and control the execution flow of your program with an analytical approach.
 Debuggers help you isolate the cause of a bug and help you resolve it. 
 A debugger connects to your code using one of two approaches:
@@ -100,6 +105,7 @@ For example, you can look at the value of your variables and function parameters
 Mastering the use of a code debugger is an important skill. 
 ///////////
 Recap
+//////////////
 Here are a few important things to remember from this unit:
 
 Code debugging is a crucial skill in the software development process that every developer learns.
@@ -108,18 +114,29 @@ not rereading your code five times or adding console.WriteLine() statements thro
 Debuggers enable you to pause your application, step through your code line-by-line, 
 and observe the state of variables and function parameters.
 */
-/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 //Unit 4 of 6: Examine exceptions and how exceptions are used
 /*
 What are exceptions?
 Here is a more formal definition that describes what an exception is and how an exception is used in a C# application:
 
-In C#, errors in the program at runtime are propagated through the program by using a mechanism called exceptions. 
-Exceptions are thrown by code that encounters an error and caught by code that can correct the error. 
-Exceptions can be thrown by the .NET runtime or by code in a program. 
-Exceptions are represented by classes derived from Exception. 
-Each class identifies the type of exception and contains properties that have details about the exception.
+**In C#, errors in the program at runtime are propagated through the program by using a mechanism called exceptions. 
+**Exceptions are thrown by code that encounters an error and caught by code that can correct the error. 
+**Exceptions can be thrown by the .NET runtime or by code in a program. 
+**Exceptions are represented by classes derived from Exception. 
+**Each class identifies the type of exception and contains properties that have details about the exception.
 
+Microsoft's documentation on exceptions goes into great detail. 
+However, this definition provides the information that you need right now. Specifically, you need to understand two things:
+1. You need to understand what exceptions are.
+2. You need to understand how to use exceptions in your applications.
+
+You can think of an exception as a variable that has extra capabilities. 
+ou can do the same type of things with exceptions that you do with variables, for example:
+1. You can create different types of exceptions.
+2. You can access the contents of an exception.
+
+/------------------------------------------------------
 What does it mean to "throw" and "catch" an exception?
 The terms "throw" and "catch" can be explained by evaluating the definition of an exception.
 
@@ -139,15 +156,16 @@ You can write code that accesses the exception and takes corrective action.
 The remaining portion of the definition tells you that if the .NET runtime detects an error, it generates the exception. 
 The exception that's generated contains information about the error that occurred. 
 Your code can catch an exception and correct the issue using the information stored in the exception.
-
+///////////////
 Recap
-Here are a few important things to remember from this unit:
-
-Exceptions are used in C# to propagate errors at runtime, and are represented by classes derived from the Exception class.
-Exceptions are thrown by code that encounters an error and caught by code that can correct the error.
-When an exception is caught, code can access its contents and take corrective action to mitigate the error.
-The .NET runtime generates exceptions when it detects an error and the exception contains information about the type of error that occurred.
+////////////////
+1. Exceptions are used in C# to propagate errors at runtime, and are represented by classes derived from the Exception class.
+2. Exceptions are thrown by code that encounters an error and caught by code that can correct the error.
+3. When an exception is caught, code can access its contents and take corrective action to mitigate the error.
+4. The .NET runtime generates exceptions when it detects an error and the exception contains information about the type of error that occurred.
 */
+
+////////////////////////////////////////////////////
 //unit 5 also a quiz of knowledge check!
 //Summary
 //Completed
@@ -161,6 +179,5 @@ The .NET runtime generates exceptions when it detects an error and the exception
 //Without the conceptual knowledge that you've gained, you wouldn't be prepared to start using code debugging 
 // and exception handling in your C# applications.
 
-//Free verified certification
 //End of this module
 /////////////////////////////////////////////////////////////////////
