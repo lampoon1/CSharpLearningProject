@@ -1,342 +1,252 @@
-﻿// See https://aka.ms/new-console-template for more information
-//Console.WriteLine("Hello, World!");
-/// Tutorial 1: learn to set breakpoint
-/// set it on line with (numbers[5]) and run debugger
-/// Tutorial 2: more Exceptions in various 
-/// DivideByZero and still learning to set breakpoints
-/// NullReference
-/// FileNotFound
-/// ////////////////////////////////////////////////////////////////////////////////////
-/// Tutorial 3: From TestProject\Module 6 and challenge activity on exception handling
-///unit 8 of 11 -Complete a challenge activity to catch specific exceptions
-/// Exercise - Catch specific exceptions challenge
+﻿///////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//2025/9/8
+//Module 6:  5  - Guided Project
+//Debug and handle exceptions in a C# console application using Visual Studio Code
+//total 6 units
+////////////////////////////////////////////////////////////////////////////////
+/// Unit 1 and 2
+//Learning objectives
+//1. Use the Visual Studio Code debugger tools to identify and correct an issue in your code logic.
+//2. Implement exception handling in a C# console application using the try-catch pattern.
+//3. Create and throw exceptions with customized properties.
+//4. Catch exceptions at a lower level in the call stack.
+//
+//Prerequisites
+//1. An installation of Visual Studio Code that's configured for C# application development.
+//2. Ability to develop C# console applications that implement business logic using iteration statements, 
+//      selection statements, and custom methods.
+//3. Experience using the Visual Studio Code debugging tools for C#.
+//4. Experience implementing try-catch exception handing and throwing exceptions in C# console applications.
+//
+//Introduction
+//- develop a retail-support applications - c# console application
+//- The team is working on a cash register application that manages retail transactions. 
+//      You're developing the MakeChange method that manages the money till and calculates 
+//      the amount of change returned to the customer. 
+//      The MakeChange method tracks the number of bills of each denomination (1, 5, 10, and 20)
+//      that are available in the till. 
+//  The team is planning to add exception handling to the application during the code verification process.
+//      code review and 
+//      debugging process
+//  use try-catch pattern and throw exception 
+////////////////////////////////////////////
+///Unit 3
+/// Review and test a C# console application using sample data
+/// 1.Code review: review the contents of the Program.cs file.
+///     The Program.cs includes the following code sections:
+///        - Top-level statements: the top-level statements simulate a series of transactions 
+///          using either an array of testData or a larger number of randomly generated transactions.
+///        - LoadTillEachMorning: the LoadTillEachMorning method is used to configure the 
+///          cash register till with a predefined number of bills in each denomination.
+///        - MakeChange: the MakeChange method is used to manage the cash till during purchase transactions.
+///        - LogTillStatus: the LogTillStatus method is used to display the number 
+///          of bills of each denomination currently in the till.
+///        - TillAmountSummary: the TillAmountSummary method is used display 
+///          a message showing the amount of cash in the till.
+///  2.  Initial testing: verify that MakeChange successfully balances the money till 
+///      when using the testData array to simulate transactions.
+///  3.  Code debugging: isolate and correct a logic issue that's exposed 
+///      when using randomly generated data.
+///  4.  Verification test: perform a verification test 
+///      on the code you develop in this exercise.
 /// 
-////////////////////////////////////////////////////////// 
 /*
-using System;
-class Program
+This application manages transactions at a store check-out line. The
+check-out line has a cash register, and the register has a cash till
+that is prepared with a number of bills each morning. The till includes
+bills of four denominations: $1, $5, $10, and $20. The till is used
+to provide the customer with change during the transaction. The item 
+cost is a randomly generated number between 2 and 49. The customer 
+offers payment based on an algorithm that determines a number of bills
+in each denomination. 
+
+Each day, the cash till is loaded at the start of the day. As transactions
+occur, the cash till is managed in a method named MakeChange (customer 
+payments go in and the change returned to the customer comes out). A 
+separate "safety check" calculation that's used to verify the amount of
+money in the till is performed in the "main program". This safety check
+is used to ensure that logic in the MakeChange method is working as 
+expected.
+*///manages the money till during each purchase transaction
+//relies on the following conditions:
+//cash transactions, input parameters are valid, cash available in the till,
+//change owed to customer
+//underpayment
+//insufficient till
+
+string? readResult = null;
+bool useTestData = true;
+
+Console.Clear();
+
+int[] cashTill = new int[] { 0, 0, 0, 0 };
+int registerCheckTillTotal = 0;
+
+// registerDailyStartingCash: $1 x 50, $5 x 20, $10 x 10, $20 x 5 => ($350 total)
+int[,] registerDailyStartingCash = new int[,] { { 1, 50 }, { 5, 20 }, { 10, 10 }, { 20, 5 } };
+
+int[] testData = new int[] { 6, 10, 17, 20, 31, 36, 40, 41 };
+int testCounter = 0;
+
+LoadTillEachMorning(registerDailyStartingCash, cashTill);
+
+registerCheckTillTotal = registerDailyStartingCash[0, 0] * registerDailyStartingCash[0, 1] + registerDailyStartingCash[1, 0] * registerDailyStartingCash[1, 1] + registerDailyStartingCash[2, 0] * registerDailyStartingCash[2, 1] + registerDailyStartingCash[3, 0] * registerDailyStartingCash[3, 1];
+
+// display the number of bills of each denomination currently in the till
+LogTillStatus(cashTill);
+
+// display a message showing the amount of cash in the till
+Console.WriteLine(TillAmountSummary(cashTill));
+
+// display the expected registerDailyStartingCash total
+Console.WriteLine($"Expected till value: {registerCheckTillTotal}\n\r");
+
+var valueGenerator = new Random((int)DateTime.Now.Ticks);
+
+int transactions = 10;
+
+if (useTestData)
 {
-    static void Main()
-    {
-        Console.WriteLine("Starting exception demo...");
-
-        try
-        {
-            int[] numbers = { 1, 2, 3 };
-            Console.WriteLine(numbers[5]);  // <-- set a breakpoint here
-        }
-        catch (IndexOutOfRangeException ex)
-        {
-            Console.WriteLine($"Caught an exception: {ex.Message}");
-        }
-        finally
-        {
-            Console.WriteLine("Finally block always runs.");
-        }
-
-        Console.WriteLine("Program continues after exception handling.");
-    }
-}
-*/
-//////////////////////////////////////////////
-////////////////////////////////////////////////////////// 
-/*
- using System;
-using System.IO;
-
-class Program
-{
-    // 👇 Change this to 1, 2, or 3 to run each exercise
-    static int EXERCISE = 1;
-
-    static void Main()
-    {
-        Console.WriteLine($"Starting Exception Lab (Exercise {EXERCISE})\n");
-
-        switch (EXERCISE)
-        {
-            case 1: DivideByZero_Handled();  break;
-            case 2: NullReference_Handled(); break;
-            case 3: FileNotFound_Handled();  break;
-            default: Console.WriteLine("Set EXERCISE = 1, 2, or 3 at top of file."); break;
-        }
-
-        Console.WriteLine("\nDone.");
-    }
-
-    // ========= EXERCISE 1: DivideByZero =========
-    static void DivideByZero_Unhandled()
-    {
-        Console.WriteLine("[1] DivideByZero (unhandled) — set breakpoint on the division");
-        int a = 5;
-        int b = 0;
-
-        // ⛳ Breakpoint here
-        int result = a / b;   // throws System.DivideByZeroException for ints
-
-        Console.WriteLine($"Result = {result}");
-    }
-
-    static void DivideByZero_Handled()
-    {
-        Console.WriteLine("[1] DivideByZero (handled) — try/catch");
-
-        int a = 5;
-        int b = 0;
-
-        try
-        {
-            // ⛳ Breakpoint here
-            int result = a / b;
-            Console.WriteLine($"Result = {result}");
-        }
-        catch (DivideByZeroException ex) when (b == 0) // example of exception filter
-        {
-            Console.WriteLine($"Caught: {ex.GetType().Name} — {ex.Message}");
-        }
-        finally
-        {
-            Console.WriteLine("Finally (always runs).");
-        }
-    }
-
-    // ========= EXERCISE 2: NullReference =========
-    static void NullReference_Unhandled()
-    {
-        Console.WriteLine("[2] NullReference (unhandled) — set breakpoint on the line using 'name'");
-
-        string? name = null;
-
-        // ⛳ Breakpoint here
-        int len = name.Length;  // throws System.NullReferenceException
-
-        Console.WriteLine($"Name length = {len}");
-    }
-
-    static void NullReference_Handled()
-    {
-        Console.WriteLine("[2] NullReference (handled)");
-        string? name = null;
-
-        try
-        {
-            // ⛳ Breakpoint here
-            int len = name!.Length; // '!' suppresses warnings, still throws if null
-            Console.WriteLine($"Name length = {len}");
-        }
-        catch (NullReferenceException ex)
-        {
-            Console.WriteLine($"Caught: {ex.GetType().Name} — {ex.Message}");
-            // Safer alternatives:
-            int safeLen = name?.Length ?? 0;   // null-conditional + coalesce
-            Console.WriteLine($"Safe length using ?. and ?? = {safeLen}");
-        }
-    }
-
-    // ========= EXERCISE 3: FileNotFound =========
-    static void FileNotFound_Unhandled()
-    {
-        Console.WriteLine("[3] FileNotFound (unhandled)");
-        Console.WriteLine($"Working directory: {Directory.GetCurrentDirectory()}");
-
-        // Intentionally read a missing file
-        string path = "missing.txt";
-
-        // ⛳ Breakpoint here
-        string content = File.ReadAllText(path);  // throws System.IO.FileNotFoundException
-
-        Console.WriteLine($"File content: {content}");
-    }
-
-    static void FileNotFound_Handled()
-    {
-        Console.WriteLine("[3] FileNotFound (handled)");
-        Console.WriteLine($"Working directory: {Directory.GetCurrentDirectory()}");
-
-        string path = "missing.txt";
-        try
-        {
-            // ⛳ Breakpoint here
-            string content = File.ReadAllText(path);
-            Console.WriteLine($"File content: {content}");
-        }
-        catch (FileNotFoundException ex)
-        {
-            Console.WriteLine($"Caught: {ex.GetType().Name}");
-            Console.WriteLine($"Missing file: {ex.FileName ?? Path.GetFullPath(path)}");
-        }
-        catch (DirectoryNotFoundException ex)
-        {
-            Console.WriteLine($"Caught: {ex.GetType().Name} — {ex.Message}");
-        }
-        catch (IOException ex)
-        {
-            Console.WriteLine($"Caught general I/O error: {ex.Message}");
-        }
-        finally
-        {
-            Console.WriteLine("Cleanup or fallback goes here.");
-        }
-    }
-}
-*/
-//////////////////////////////////////////////////////////////
-//
-//Exercise - Complete a challenge activity for try-catch
-//Code starts
-/*
-try
-{
-    Process1();
-}
-catch
-{
-    Console.WriteLine("An exception has occurred");
+    transactions = testData.Length;
 }
 
-Console.WriteLine("Exit program");
-
-static void Process1()
+while (transactions > 0)
 {
-    try
+    transactions -= 1;
+    int itemCost = valueGenerator.Next(2, 20);
+
+    if (useTestData)
     {
-        WriteMessage();
+        itemCost = testData[testCounter];
+        testCounter += 1;
     }
-    //catch (Exception ex) //first try  this from System.Exception 
-    // next, do this specific exception type:  System.DivideByZeroException
-    catch (DivideByZeroException ex)
+
+    int paymentOnes = itemCost % 2;                 // value is 1 when itemCost is odd, value is 0 when itemCost is even
+    int paymentFives = (itemCost % 10 > 7) ? 1 : 0; // value is 1 when itemCost ends with 8 or 9, otherwise value is 0
+    int paymentTens = (itemCost % 20 > 13) ? 1 : 0; // value is 1 when 13 < itemCost < 20 OR 33 < itemCost < 40, otherwise value is 0
+    int paymentTwenties = (itemCost < 20) ? 1 : 2;  // value is 1 when itemCost < 20, otherwise value is 2
+
+    // display messages describing the current transaction
+    Console.WriteLine($"Customer is making a ${itemCost} purchase");
+    Console.WriteLine($"\t Using {paymentTwenties} twenty dollar bills");
+    Console.WriteLine($"\t Using {paymentTens} ten dollar bills");
+    Console.WriteLine($"\t Using {paymentFives} five dollar bills");
+    Console.WriteLine($"\t Using {paymentOnes} one dollar bills");
+
+    // MakeChange manages the transaction and updates the till 
+    string transactionMessage = MakeChange(itemCost, cashTill, paymentTwenties, paymentTens, paymentFives, paymentOnes);
+
+    // Backup Calculation - each transaction adds current "itemCost" to the till
+    if (transactionMessage == "transaction succeeded")
     {
-        Console.WriteLine($"Exception caught in Process1: {ex.Message}");
+        Console.WriteLine($"Transaction successfully completed.");
+        registerCheckTillTotal += itemCost;
     }
-}
-
-static void WriteMessage()
-{
-    double float1 = 3000.0;
-    double float2 = 0.0;
-    int number1 = 3000;
-    int number2 = 0;
-    byte smallNumber;
-
-    //Console.WriteLine(float1 / float2);
-    //Console.WriteLine(number1 / number2);
-
-    //Console.WriteLine(float1 / float2);
-    // Console.WriteLine(number1 / number2);
-    //checked
-    //{
-    //    smallNumber = (byte)number1;
-    //}
-
-    try
+    else
     {
-        Console.WriteLine(float1 / float2);
-        Console.WriteLine(number1 / number2);
+        Console.WriteLine($"Transaction unsuccessful: {transactionMessage}");
     }
-    catch (DivideByZeroException ex)
+
+    Console.WriteLine(TillAmountSummary(cashTill));
+    Console.WriteLine($"Expected till value: {registerCheckTillTotal}\n\r");
+    Console.WriteLine();
+}
+
+Console.WriteLine("Press the Enter key to exit");
+do
+{
+    readResult = Console.ReadLine();
+
+} while (readResult == null);
+
+
+static void LoadTillEachMorning(int[,] registerDailyStartingCash, int[] cashTill)
+{
+    cashTill[0] = registerDailyStartingCash[0, 1];
+    cashTill[1] = registerDailyStartingCash[1, 1];
+    cashTill[2] = registerDailyStartingCash[2, 1];
+    cashTill[3] = registerDailyStartingCash[3, 1];
+}
+
+
+static string MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int fives = 0, int ones = 0)
+{
+    string transactionMessage = "";
+
+    cashTill[3] += twenties;
+    cashTill[2] += tens;
+    cashTill[1] += fives;
+    cashTill[0] += ones;
+
+    int amountPaid = twenties * 20 + tens * 10 + fives * 5 + ones;
+    int changeNeeded = amountPaid - cost;
+
+    if (changeNeeded < 0)
+        transactionMessage = "Not enough money provided.";
+
+    Console.WriteLine("Cashier Returns:");
+
+    while ((changeNeeded > 19) && (cashTill[3] > 0))
     {
-        Console.WriteLine($"Exception caught in WriteMessage: {ex.Message}");
+        cashTill[3]--;
+        changeNeeded -= 20;
+        Console.WriteLine("\t A twenty");
     }
-    checked
+
+    while ((changeNeeded > 9) && (cashTill[2] > 0))
     {
-        try
-        {
-            smallNumber = (byte)number1;
-        }
-        catch (OverflowException ex)
-        {
-            Console.WriteLine($"Exception caught in WriteMessage: {ex.Message}");
-        }  
+        cashTill[2]--;
+        changeNeeded -= 10;
+        Console.WriteLine("\t A ten");
     }
-}
 
-//expect output:
-//Exception caught in Process1
-//
-//Exception caught in Process1
-//Exit program
-//
-//Exception thrown: 'System.DivideByZeroException' in Exceptions101.dll
-//The program '[436] Exceptions101.dll' has exited with code 0 (0x0).
-*/
-//////////////////////////////////////////
-/*
-checked
-{
-    try
+    while ((changeNeeded > 4) && (cashTill[1] > 0))
     {
-        int num1 = int.MaxValue;
-        int num2 = int.MaxValue;
-        int result = num1 + num2;
-        Console.WriteLine("Result: " + result);
+        cashTill[2]--;
+        changeNeeded -= 5;
+        Console.WriteLine("\t A five");
     }
-    catch (OverflowException ex)
+
+    while ((changeNeeded > 0) && (cashTill[0] > 0))
     {
-        Console.WriteLine("Error: The number is too large to be represented as an integer. " + ex.Message);
+        cashTill[0]--;
+        changeNeeded--;
+        Console.WriteLine("\t A one");
     }
+
+    if (changeNeeded > 0)
+        transactionMessage = "Can't make change. Do you have anything smaller?";
+
+    if (transactionMessage == "")
+        transactionMessage = "transaction succeeded";
+
+    return transactionMessage;
 }
 
-try
+static void LogTillStatus(int[] cashTill)
 {
-    string? str = null;
-    int length = str.Length;
-    Console.WriteLine("String Length: " + length);
+    Console.WriteLine("The till currently has:");
+    Console.WriteLine($"{cashTill[3] * 20} in twenties");
+    Console.WriteLine($"{cashTill[2] * 10} in tens");
+    Console.WriteLine($"{cashTill[1] * 5} in fives");
+    Console.WriteLine($"{cashTill[0]} in ones");
+    Console.WriteLine();
 }
-catch (NullReferenceException ex)
+
+static string TillAmountSummary(int[] cashTill)
 {
-    Console.WriteLine("Error: The reference is null. " + ex.Message);
+    return $"The till has {cashTill[3] * 20 + cashTill[2] * 10 + cashTill[1] * 5 + cashTill[0]} dollars";
+
 }
 
-try
-{
-    int[] numbers = new int[5];
-    numbers[5] = 10;
-    Console.WriteLine("Number at index 5: " + numbers[5]);
-}
-catch (IndexOutOfRangeException ex)
-{
-    Console.WriteLine("Error: Index out of range. " + ex.Message);
-}
-
-try
-{
-    int num3 = 10;
-    int num4 = 0;
-    int result2 = num3 / num4;
-    Console.WriteLine("Result: " + result2);
-}
-catch (DivideByZeroException ex)
-{
-    Console.WriteLine("Error: Cannot divide by zero." + ex.Message);
-}
-
-Console.WriteLine("Exiting program.");
-*/
 
 
-//OUTPUT:
-// Error: The number is too large to be represented as an integer. Arithmetic operation resulted in an overflow.
-// Error: The reference is null. Object reference not set to an instance of an object.
-// Error: Index out of range. Index was outside the bounds of the array.
-// Error: Cannot divide by zero.Attempted to divide by zero.
-// Exiting program.
-////////////////////////////////////
-/// SUMMARY
-/*
-Your goal was to gain experience implementing exception handling in C# applications using Visual Studio Code.
-
-By examining the properties of common exception types and experimenting with the try-catch pattern, you gained experience catching runtime exceptions. You used exception handling to catch exceptions in the method where they occurred and at a lower level of the call stack. You also practiced using two or more catch clauses to catch different exception types associated with a single try code block.
-
-Without the ability to implement exception handling, you wouldn't be able to delivery stable and reliable C# applications.
-
-Reference materials
-You can find additional information about exception properties here: https://learn.microsoft.com/dotnet/standard/exceptions/exception-class-and-properties and https://learn.microsoft.com/dotnet/api/system.exception.
-
-You can find additional information about exceptions here: https://learn.microsoft.com/dotnet/csharp/language-reference/language-specification/exceptions.
-
-You can find additional information about using specific exception types here: https://learn.microsoft.com/dotnet/standard/exceptions/how-to-use-specific-exceptions-in-a-catch-block.
-
-You can find additional information about the try-catch-finally patterns here: https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/try-catch-finally.
-*/
-/// /////////////////////////////////////////////////////
-/// END OF MODULE on Exception Handling//////////////
+///making final corrections
+/// first, Verify that MakeChange successfully manages the money when using the testData array
+/// Run the code using debugging mode
+/// notice IOException
+/// on the debug toolbar, select stop
+/// open launch.json file, update the console attribute to "integratedTerminal"
+/// note: default value for the console attribute is internalConsole, 
+/////////// END OF MODULE on Exception Handling//////////////
