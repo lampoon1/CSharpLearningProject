@@ -1,6 +1,6 @@
 ﻿///////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-//2025/9/8
+//2025/9/8; 9/13 reviewing again
 //Module 6:  5  - Guided Project
 //Debug and handle exceptions in a C# console application using Visual Studio Code
 //total 6 units
@@ -68,7 +68,8 @@ separate "safety check" calculation that's used to verify the amount of
 money in the till is performed in the "main program". This safety check
 is used to ensure that logic in the MakeChange method is working as 
 expected.
-*///manages the money till during each purchase transaction
+*/
+//manages the money till during each purchase transaction
 //relies on the following conditions:
 //cash transactions, input parameters are valid, cash available in the till,
 //change owed to customer
@@ -76,8 +77,7 @@ expected.
 //insufficient till
 //////////end of unit 3 intro and explanation ////////////////////////
 //////////UNIT 4 coding and testing starts here////////////
-
-
+/*
 string? readResult = null;
 bool useTestData = true;
 
@@ -87,6 +87,7 @@ int[] cashTill = new int[] { 0, 0, 0, 0 };
 int registerCheckTillTotal = 0;
 
 // registerDailyStartingCash: $1 x 50, $5 x 20, $10 x 10, $20 x 5 => ($350 total)
+//modify to use 2D integer array:
 int[,] registerDailyStartingCash = new int[,] { { 1, 50 }, { 5, 20 }, { 10, 10 }, { 20, 5 } };
 
 int[] testData = new int[] { 6, 10, 17, 20, 31, 36, 40, 41 };
@@ -143,9 +144,11 @@ while (transactions > 0)
     // MakeChange manages the transaction and updates the till 
     //this line: MakeChange returns a string called transactionMessage
     //string transactionMessage = MakeChange(itemCost, cashTill, paymentTwenties, paymentTens, paymentFives, paymentOnes);
+    
+    //updated to use try-catch block here:
     try
     {
-        //unit 4: now turn the MakeChange return type to void
+        //unit 4: now turn the MakeChange return type to void, calling this method here:
         MakeChange(itemCost, cashTill, paymentTwenties, paymentTens, paymentFives, paymentOnes);
 
         Console.WriteLine($"Transaction successfully completed.");
@@ -191,7 +194,7 @@ static void LoadTillEachMorning(int[,] registerDailyStartingCash, int[] cashTill
 
 
 //unit 4 modifications to MakeChange method: added exception on changeNeeded < 0 and changeNeeded > 0
-//also changed return type from string to void
+//also changed return type from string to void here:
 static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int fives = 0, int ones = 0)
 {
     //string transactionMessage = "";
@@ -206,6 +209,7 @@ static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int
 
     // if (changeNeeded < 0)
     //     transactionMessage = "Not enough money provided.";
+    //updated code to catch error and write out custom error message here:
     if (changeNeeded < 0)
         throw new InvalidOperationException("InvalidOperationException: Not enough money provided to complete the transaction.");
 
@@ -241,6 +245,7 @@ static void MakeChange(int cost, int[] cashTill, int twenties, int tens = 0, int
 
     // if (changeNeeded > 0)
     //     transactionMessage = "Can't make change. Do you have anything smaller?";
+    //updated code to catch error and write out custom error message here:
     if (changeNeeded > 0)
         throw new InvalidOperationException("InvalidOperationException: The till is unable to make the correct change.");
 
@@ -264,6 +269,8 @@ static string TillAmountSummary(int[] cashTill)
     return $"The till has {cashTill[3] * 20 + cashTill[2] * 10 + cashTill[1] * 5 + cashTill[0]} dollars";
 
 }
+*/
+
 
 ////////////////////////////////////////////
 //unit 3 notes: 
@@ -296,7 +303,7 @@ Press the Enter key to exit
 /// - perform Verification tests for the code that you develop in this exercise.
 /// 
 /// /////////
-/// OUTPUT:  I think my code is incorrent, the till keep increasing amount and I do not see the exception being thrown
+/// OUTPUT:  I think my code is incorrect, the till keep increasing amount and I do not see the exception being thrown
 /// ///////// /
 /*
  The till currently has:
@@ -406,16 +413,15 @@ Press the Enter key to exit
 /////////////////////////////
 /// RECAP
 /// debugged the cash register application to fix a code logic issue, 
-/// and you've updated the application to use proper exception handling techniques.
+/// updated the application to use proper exception handling techniques.
+/// 
 /// NOTE:
-/// Note
 /// The reported output shows that the money till is no longer balanced. 
 /// There are additional logic bugs in the code. 
 /// A challenge project module is available if you're interested in 
 /// demonstrating your Visual Studio Code debugging skills!
 /// 
 /// SUMMARY
-/// 
 /// Your goal was to gain experience with the Visual Studio Code debugger, 
 /// implement a try-catch pattern, and create and throw exceptions 
 /// that are caught at a lower level of the call stack.
@@ -423,15 +429,146 @@ Press the Enter key to exit
 /// By reviewing the cash register application, debugging the MakeChange method, 
 /// and implementing exception handling techniques in both the method and calling code, 
 /// you gained the experience you wanted. 
+/// 
 /// You used the debugger tools to configure a breakpoint in the top-level 
 /// statements of the application. With execution paused, you stepped through the code 
 /// to isolate an issue in the code logic. 
+/// 
 /// You implemented a try-catch pattern in the top-level statements, 
 /// created and threw an InvalidOperationException exception in the MakeChange method, 
 /// and then updated the catch clause to catch only the InvalidOperationException exception type.
 /// 
 /// The ability to debug C# applications and implement exception handling 
 /// enables you to develop stable and reliable applications.
+/////////////////////////////////////////////////////////////////
 /// 
+/// //2025/9/13 review
+/// --build and run again; fixed previous file (Program_Mod6_....cs)
+///      that has some code there causing not errors but warning
+/// --fix: I can open the debugger by open the folder that has the .csproj, 
+/// in my case, do File -> open folder-- > C:\Temp\DebugTest\
+/// since I moved this folder out of C:\Temp\CsharpProjects\TestProject\
+/// and save file and press F5 did start the debugger!
+/// 
+/// OUTPUT: 
+/*
+The till currently has:
+100 in twenties
+100 in tens
+100 in fives
+50 in ones
+
+The till has 350 dollars
+Expected till value: 350
+
+Customer is making a $6 purchase
+         Using 1 twenty dollar bills
+         Using 0 ten dollar bills
+         Using 0 five dollar bills
+         Using 0 one dollar bills
+Cashier Returns:
+         A ten
+         A one
+         A one
+         A one
+         A one
+Transaction successfully completed.
+The till has 356 dollars
+Expected till value: 356
+
+
+Customer is making a $10 purchase
+         Using 1 twenty dollar bills
+         Using 0 ten dollar bills
+         Using 0 five dollar bills
+         Using 0 one dollar bills
+Cashier Returns:
+         A ten
+Transaction successfully completed.
+The till has 366 dollars
+Expected till value: 366
+
+
+Customer is making a $17 purchase
+         Using 1 twenty dollar bills
+         Using 1 ten dollar bills
+         Using 0 five dollar bills
+         Using 1 one dollar bills
+Cashier Returns:
+         A ten
+         A one
+         A one
+         A one
+         A one
+Transaction successfully completed.
+The till has 383 dollars
+Expected till value: 383
+
+
+Customer is making a $20 purchase
+         Using 2 twenty dollar bills
+         Using 0 ten dollar bills
+         Using 0 five dollar bills
+         Using 0 one dollar bills
+Cashier Returns:
+         A twenty
+Transaction successfully completed.
+The till has 403 dollars
+Expected till value: 403
+
+
+Customer is making a $31 purchase
+         Using 2 twenty dollar bills
+         Using 0 ten dollar bills
+         Using 0 five dollar bills
+         Using 1 one dollar bills
+Cashier Returns:
+         A ten
+Transaction successfully completed.
+The till has 434 dollars
+Expected till value: 434
+
+
+Customer is making a $36 purchase
+         Using 2 twenty dollar bills
+         Using 1 ten dollar bills
+         Using 0 five dollar bills
+         Using 0 one dollar bills
+Cashier Returns:
+         A ten
+         A one
+         A one
+         A one
+         A one
+Transaction successfully completed.
+The till has 470 dollars
+Expected till value: 470
+
+
+Customer is making a $40 purchase
+         Using 2 twenty dollar bills
+         Using 0 ten dollar bills
+         Using 0 five dollar bills
+         Using 0 one dollar bills
+Cashier Returns:
+Transaction successfully completed.
+The till has 510 dollars
+Expected till value: 510
+
+
+Customer is making a $41 purchase
+         Using 2 twenty dollar bills
+         Using 0 ten dollar bills
+         Using 0 five dollar bills
+         Using 1 one dollar bills
+Cashier Returns:
+Transaction successfully completed.
+The till has 551 dollars
+Expected till value: 551
+
+
+Press the Enter key to exit
+*/
+/////////////////////////////////////////////////////////////
 /////////// END OF MODULE on Exception Handling//////////////
 /// ////////////////////////////////////////////////////////////////////////////
